@@ -12,28 +12,38 @@ pipeline {
 
         stage('Compile') {
             steps {
-                sh "mvn clean compile"
+                script {
+                    sh "mvn clean compile"
+                }
             }
         }
         stage('Run Tests') {
             steps {
-                sh "mvn clean test"
+                script {
+                    sh "mvn clean test"
+                }
             }
         }
         stage('Package & Build') {
             steps {
-                sh "mvn clean package -DskipTest=true"
+                script {
+                    sh "mvn clean package -DskipTest=true"
+                }
             }
         }
         stage('Build Docker image') {
             steps {
-                app = docker.build("devstartshop/spring-petclinic")
+                script {
+                    app = docker.build("devstartshop/spring-petclinic")
+                }
             }
         }
         stage('Push image to DockerHub') {
-            docker.withRegistry('https://registry.hub.docker.com', 'git') {
-                app.push("${env.BUILD_NUMBER}")
-                app.push("latest")
+            script {
+                docker.withRegistry('https://registry.hub.docker.com', 'git') {
+                    app.push("${env.BUILD_NUMBER}")
+                    app.push("latest")
+                }
             }
         }
     }
