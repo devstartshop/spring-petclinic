@@ -1,4 +1,5 @@
 #!/usr/bin/env groovy
+def app
 pipeline {
 
     agent any
@@ -8,7 +9,7 @@ pipeline {
         maven 'MAVEN'
     }
     stages {
-        def app
+
         stage('Compile') {
             sh "mvn clean compile"
         }
