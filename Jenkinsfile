@@ -11,16 +11,24 @@ pipeline {
     stages {
 
         stage('Compile') {
-            sh "mvn clean compile"
+            steps {
+                sh "mvn clean compile"
+            }
         }
         stage('Run Tests') {
-            sh "mvn clean test"
+            steps {
+                sh "mvn clean test"
+            }
         }
         stage('Package & Build') {
-            sh "mvn clean package -DskipTest=true"
+            steps {
+                sh "mvn clean package -DskipTest=true"
+            }
         }
         stage('Build Docker image') {
-            app = docker.build("devstartshop/spring-petclinic")
+            steps {
+                app = docker.build("devstartshop/spring-petclinic")
+            }
         }
         stage('Push image to DockerHub') {
             docker.withRegistry('https://registry.hub.docker.com', 'git') {
