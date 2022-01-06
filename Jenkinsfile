@@ -1,7 +1,7 @@
 #!/usr/bin/env groovy
 pipeline {
 
-    agents any
+    agent any
 
     tools {
         jdk 'JAVA_17'
