@@ -4,8 +4,8 @@ pipeline {
     agents any
 
     tools {
-        java "JAVA_17"
-        MAVEN "MAVEN"
+        jdk 'JAVA_17'
+        maven 'MAVEN'
     }
     stages {
         def app
