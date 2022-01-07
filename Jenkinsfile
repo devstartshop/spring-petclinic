@@ -2,11 +2,11 @@
 def app
 pipeline {
 
-    agent any
+    agent any // use any available node. In our case there is only master.
 
     tools {
-        jdk 'JFROG_JDK'
-        maven 'JFROG_MAVEN'
+        jdk 'JFROG_JDK' // pick specific JDK based on project needs.
+        maven 'JFROG_MAVEN' // pick specific Maven installation based on project needs.
     }
     stages {
         stage('Checkout') {

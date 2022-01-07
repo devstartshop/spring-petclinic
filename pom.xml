@@ -8,7 +8,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.6.1</version>
+    <version>2.6.2</version>
   </parent>
   <name>petclinic</name>
 
@@ -274,7 +274,18 @@
       </snapshots>
     </pluginRepository>
   </pluginRepositories>-->
-
+  <distributionManagement>
+    <repository>
+      <id>central</id>
+      <name>a0j0dz9hpcgvg-artifactory-primary-0-releases</name>
+      <url>https://devstartshop.jfrog.io/artifactory/default-maven-local</url>
+    </repository>
+    <snapshotRepository>
+      <id>snapshots</id>
+      <name>a0j0dz9hpcgvg-artifactory-primary-0-snapshots</name>
+      <url>https://devstartshop.jfrog.io/artifactory/default-maven-local</url>
+    </snapshotRepository>
+  </distributionManagement>
   <profiles>
     <profile>
       <id>css</id>
