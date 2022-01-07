@@ -19,21 +19,30 @@ pipeline {
         stage('Compile') {
             steps {
                 script {
-                    sh "mvn clean compile"
+                    withMaven(globalMavenSettingsConfig: 'null', jdk: 'JFROG_JDK', maven: 'JFROG_MAVEN', mavenSettingsConfig: 'b8216566-c5c3-401b-a4b5-185c237193fa') {
+                        // some block
+                        sh "mvn clean compile"
+                    }
                 }
             }
         }
         stage('Run Tests') {
             steps {
                 script {
-                    sh "mvn clean test"
+                    withMaven(globalMavenSettingsConfig: 'null', jdk: 'JFROG_JDK', maven: 'JFROG_MAVEN', mavenSettingsConfig: 'b8216566-c5c3-401b-a4b5-185c237193fa') {
+                        sh "mvn clean test"
+                    }
+
                 }
             }
         }
         stage('Package & Build') {
             steps {
                 script {
-                    sh "mvn clean package -DskipTest=true"
+                    withMaven(globalMavenSettingsConfig: 'null', jdk: 'JFROG_JDK', maven: 'JFROG_MAVEN', mavenSettingsConfig: 'b8216566-c5c3-401b-a4b5-185c237193fa') {
+                        sh "mvn clean package -DskipTest=true"
+                    }
+
                 }
             }
         }
