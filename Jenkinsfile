@@ -5,10 +5,16 @@ pipeline {
     agent any
 
     tools {
-        jdk 'JAVA_17'
-        maven 'MAVEN'
+        jdk 'JFROG_JDK'
+        maven 'JFROG_MAVEN'
     }
     stages {
+        stage('Checkout') {
+            steps {
+                step([$class: 'WsCleanup'])
+                git url: 'https://github.com/devstartshop/spring-petclinic.git', branch:'main'
+            }
+        }
 
         stage('Compile') {
             steps {
@@ -34,15 +40,16 @@ pipeline {
         stage('Build Docker image') {
             steps {
                 script {
-                    app = docker.build("devstartshop/spring-petclinic")
+                    sh "docker build -t devstartshop/spring-petclinic:${env.BUILD_NUMBER} ."
                 }
             }
         }
         stage('Push image to DockerHub') {
-            script {
-                docker.withRegistry('https://registry.hub.docker.com', 'git') {
-                    app.push("${env.BUILD_NUMBER}")
-                    app.push("latest")
+            steps {
+                script {
+                    withDockerRegistry([credentialsId: "dockerhub-credentials"]) {
+                        sh "docker push devstartshop/spring-petclinic:${env.BUILD_NUMBER}"
+                    }
                 }
             }
         }
@@ -54,7 +61,7 @@ pipeline {
             cleanWs()
         }
         failure {
-            echo "Build Success!!"
+            echo "Build failed!!"
             cleanWs()
         }
     }
