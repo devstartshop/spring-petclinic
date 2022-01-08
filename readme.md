@@ -3,9 +3,10 @@
 ## Understanding the Spring Petclinic application with a few diagrams
 <a href="https://speakerdeck.com/michaelisvy/spring-petclinic-sample-application">See the presentation here</a>
 
-## Running petclinic locally
+## Running petclinic locally using source code
 Petclinic is a [Spring Boot](https://spring.io/guides/gs/spring-boot) application built using [Maven](https://spring.io/guides/gs/maven/). You can build a jar file and run it from the command line (it should work just as well with Java 8, 11 or 17):
 
+## Running petclinic locally as docker container
 ### Docker Hub Location for container images
 https://hub.docker.com/repository/docker/devstartshop/spring-petclinic
 
@@ -35,6 +36,13 @@ I have configured below tools in Jenkins Global Tool Configuration:
 6. MAVEN 3.8.4
 7. Credentials (Personal Access Token) for repository on the guthub.com to push code.
 
+
+# Additional Setup required for end-toe-end CI/CD
+Run Jenkins in a docker container with docker-dind as sidecar and then configure environment variables in jenkins to point to docker host in dind container.
+![img_2.png](img_2.png)
+
+Jenkins Stages:
+![img_1.png](img_1.png)
 ### Run Tests
 Below screenshot shows Maven Test run report.
 
