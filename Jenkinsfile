@@ -46,6 +46,16 @@ pipeline {
                 }
             }
         }
+        stage('Maven Publish') {
+            steps {
+                script {
+                    withMaven(jdk: 'JFROG_JDK', maven: 'JFROG_MAVEN', mavenSettingsConfig: 'b8216566-c5c3-401b-a4b5-185c237193fa') {
+                        sh "mvn deploy -DskipTest=true"
+                    }
+
+                }
+            }
+        }
         stage('Build Docker image') {
             steps {
                 script {
